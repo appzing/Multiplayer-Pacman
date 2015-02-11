@@ -28,7 +28,7 @@ body{
 }
 
 #name{
-	margin-left: 80px;
+	margin-left: 20px;
 }
 .btn-start{
 	width:100px;
@@ -72,7 +72,7 @@ body{
 #chat{
 	display: inline-block;
 	width: 250px;
-	height: 320px;
+	height: 300px;
 	vertical-align: top;	
 	word-wrap: break-word;
 	overflow:auto;
@@ -91,7 +91,7 @@ form{
 	display: inline-block;
 }
 input{
-	width:150px;
+	width:259px;
 	height:35px;
 	vertical-align: middle;
 	text-align: center;
@@ -101,7 +101,7 @@ input{
 	font-weight: bold;
 	border:2px solid red;
 	border-radius: 3px;
-	margin-left: 50px;
+	margin-left: 0px;
 	padding:5px 0px;
 	display: inline-block;
 }

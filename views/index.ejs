@@ -26,15 +26,15 @@
     <div id='chat'>
     </div>
     
-    <form>
-        <textarea id='message' rows=8 cols=35 name='message'  placeholder='Enter your message here...'autocomplete="off"></textarea>
-        <input type='submit' value='Send'>
-    </form>
+    <div>
+        <input id='message' name='message'  placeholder='Enter message here...'autocomplete="off"><br>
+        <button id='sendMessage' class="btn-start">Send</button>
+    </div>
 </div>
 </body>
  <script type="text/javascript">
 $(window).load(function(){
-
+        drawWorld();
         var socket = io.connect();
         var my_id= '';
         var p_my_id= '';
@@ -140,8 +140,8 @@ $(window).load(function(){
         //var name = prompt('What is your name??');
        drawWorld();
         socket.emit('new_user', {name: name})
-        $('form').submit(function (){
-            var message= $("textarea[name = 'message'").val();
+        $('#sendMessage').click(function (){
+            var message= $('#message').val();
             socket.emit('new_message', {name: name,message: message})
             $('#message').val('');
             return false;
