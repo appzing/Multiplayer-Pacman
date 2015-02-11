@@ -1,0 +1,100 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'update',
+1 verbose cli   '-g',
+1 verbose cli   'nodemon',
+1 verbose cli   'to',
+1 verbose cli   'update' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose request where is /nodemon
+5 verbose request registry https://registry.npmjs.org/
+6 verbose request id 31511fd74b099a2a
+7 verbose url raw /nodemon
+8 verbose url resolving [ 'https://registry.npmjs.org/', './nodemon' ]
+9 verbose url resolved https://registry.npmjs.org/nodemon
+10 verbose request where is https://registry.npmjs.org/nodemon
+11 info trying registry request attempt 1 at 05:28:27
+12 verbose etag "7XW4CLQNQOU0VB33CRUW2ICCH"
+13 http GET https://registry.npmjs.org/nodemon
+14 http 200 https://registry.npmjs.org/nodemon
+15 silly registry.get cb [ 200,
+15 silly registry.get   { date: 'Sun, 25 Jan 2015 13:28:27 GMT',
+15 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+15 silly registry.get     etag: '"78PKGWW4G2PC4J8G4YE305TPS"',
+15 silly registry.get     'content-type': 'application/json',
+15 silly registry.get     'cache-control': 'max-age=60',
+15 silly registry.get     'content-length': '141664',
+15 silly registry.get     'accept-ranges': 'bytes',
+15 silly registry.get     via: '1.1 varnish',
+15 silly registry.get     age: '0',
+15 silly registry.get     'x-served-by': 'cache-sjc3120-SJC',
+15 silly registry.get     'x-cache': 'HIT',
+15 silly registry.get     'x-cache-hits': '1',
+15 silly registry.get     'x-timer': 'S1422192507.344267,VS0,VE147',
+15 silly registry.get     vary: 'Accept',
+15 silly registry.get     'keep-alive': 'timeout=10, max=50',
+15 silly registry.get     connection: 'Keep-Alive' } ]
+16 info outdated updating [ [ '/usr/local/lib', 'nodemon', '1.2.1', '1.3.2', '1.3.2', 'latest' ] ]
+17 verbose install where,what [ '/usr/local/lib', [ 'nodemon@1.3.2' ] ]
+18 verbose cache add [ 'nodemon@1.3.2', null ]
+19 verbose cache add name=undefined spec="nodemon@1.3.2" args=["nodemon@1.3.2",null]
+20 verbose parsed url { protocol: null,
+20 verbose parsed url   slashes: null,
+20 verbose parsed url   auth: null,
+20 verbose parsed url   host: null,
+20 verbose parsed url   port: null,
+20 verbose parsed url   hostname: null,
+20 verbose parsed url   hash: null,
+20 verbose parsed url   search: null,
+20 verbose parsed url   query: null,
+20 verbose parsed url   pathname: 'nodemon@1.3.2',
+20 verbose parsed url   path: 'nodemon@1.3.2',
+20 verbose parsed url   href: 'nodemon@1.3.2' }
+21 verbose cache add name="nodemon" spec="1.3.2" args=["nodemon","1.3.2"]
+22 verbose parsed url { protocol: null,
+22 verbose parsed url   slashes: null,
+22 verbose parsed url   auth: null,
+22 verbose parsed url   host: null,
+22 verbose parsed url   port: null,
+22 verbose parsed url   hostname: null,
+22 verbose parsed url   hash: null,
+22 verbose parsed url   search: null,
+22 verbose parsed url   query: null,
+22 verbose parsed url   pathname: '1.3.2',
+22 verbose parsed url   path: '1.3.2',
+22 verbose parsed url   href: '1.3.2' }
+23 verbose addNamed [ 'nodemon', '1.3.2' ]
+24 verbose addNamed [ '1.3.2', '1.3.2' ]
+25 silly lockFile eb9c1afd-nodemon-1-3-2 nodemon@1.3.2
+26 verbose lock nodemon@1.3.2 /Users/nilesh/.npm/eb9c1afd-nodemon-1-3-2.lock
+27 verbose registry.get https://registry.npmjs.org/nodemon not expired, no request
+28 silly lockFile b4a698dd-js-org-nodemon-nodemon-1-3-2-tgz https://registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz
+29 verbose lock https://registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz /Users/nilesh/.npm/b4a698dd-js-org-nodemon-nodemon-1-3-2-tgz.lock
+30 verbose addRemoteTarball [ 'https://registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz',
+30 verbose addRemoteTarball   '9d54b0731bb2ce213169ebffd5bed9ea988ae9d8' ]
+31 info retry fetch attempt 1 at 05:28:28
+32 verbose fetch to= /var/folders/nh/39c7drgs3kqg_vr6dk9s8nkw0000gn/T/npm-2083-jfCptZ-_/registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz
+33 http GET https://registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz
+34 http 200 https://registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz
+35 silly lockFile b4a698dd-js-org-nodemon-nodemon-1-3-2-tgz https://registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz
+36 silly lockFile b4a698dd-js-org-nodemon-nodemon-1-3-2-tgz https://registry.npmjs.org/nodemon/-/nodemon-1.3.2.tgz
+37 silly lockFile eb9c1afd-nodemon-1-3-2 nodemon@1.3.2
+38 silly lockFile eb9c1afd-nodemon-1-3-2 nodemon@1.3.2
+39 error Error: EACCES, mkdir '/Users/nilesh/.npm/nodemon/1.3.2'
+39 error  { [Error: EACCES, mkdir '/Users/nilesh/.npm/nodemon/1.3.2']
+39 error   errno: 3,
+39 error   code: 'EACCES',
+39 error   path: '/Users/nilesh/.npm/nodemon/1.3.2' }
+40 error Please try running this command again as root/Administrator.
+41 error System Darwin 13.4.0
+42 error command "node" "/usr/local/bin/npm" "update" "-g" "nodemon" "to" "update"
+43 error cwd /Users/nilesh/Google Drive/Coding Dojo/Sockets/pacman
+44 error node -v v0.10.32
+45 error npm -v 1.4.28
+46 error path /Users/nilesh/.npm/nodemon/1.3.2
+47 error code EACCES
+48 error errno 3
+49 error stack Error: EACCES, mkdir '/Users/nilesh/.npm/nodemon/1.3.2'
+50 verbose exit [ 3, true ]

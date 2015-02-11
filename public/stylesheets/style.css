@@ -1,0 +1,280 @@
+*{
+	padding: 0px;
+	margin:0px;
+}
+body{
+	margin-left:0;
+	padding:0;
+	background-color: black;
+	font-family: verdana;
+	}
+
+
+#start{
+	width:300px;
+	height:200px;
+	position: absolute;
+	top:200px;
+	left:100px;
+	background: yellow;
+	color:blue;
+	border: 2px solid red;
+}
+
+.welcome{
+	padding-left: 30px;
+	margin: 20px;
+}
+
+#name{
+	margin-left: 80px;
+}
+.btn-start{
+	width:100px;
+	height:50px;
+	background-color: red;
+	color:;
+	border:2px solid white;
+	border-radius: 6px;
+	margin-left: 100px;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 20px;
+
+}
+#title{
+	color:yellow;
+	width:250px;
+	text-align: center;
+	border:2px solid red;
+}
+
+.board{
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	vertical-align: top;
+	display: block;
+	font-size: 1.5em;
+	text-align: center;
+	width: 250px;
+	color:blue;
+}
+
+#chat_window{
+	display: inline-block;
+	border: none;
+	width: 250px;
+	vertical-align: top;
+	background-color:black;
+	color:white;
+}
+#chat{
+	display: inline-block;
+	width: 250px;
+	height: 320px;
+	vertical-align: top;	
+	word-wrap: break-word;
+	overflow:auto;
+	padding: 5px;
+	border-left: 2px solid red;
+	border-right: 2px solid red;
+	border-top: 2px solid red;
+}
+textarea{
+	border-left: 2px solid red;
+	border-right: 2px solid red;
+	border-bottom: 2px solid red;
+}
+form{
+	vertical-align: bottom;
+	display: inline-block;
+}
+input{
+	width:150px;
+	height:35px;
+	vertical-align: middle;
+	text-align: center;
+	background-color: yellow;
+	color:blue;
+	font-size: 1.3em;
+	font-weight: bold;
+	border:2px solid red;
+	border-radius: 3px;
+	margin-left: 50px;
+	padding:5px 0px;
+	display: inline-block;
+}
+#score{
+	display: inline-block;
+	width: 250px;
+	font-size: 1.2em;
+	margin-bottom: 5px;
+	vertical-align: top;
+	color: white;
+	background-color: black;
+	text-align: center;
+}
+#world{
+	background-color: black;
+	width: 560px;
+	height: 640px;
+	display: inline-block;
+}
+
+.wall{
+	border: 1px solid white;
+	border-radius: 2px;
+	display: inline-block;
+	background-color: blue;
+	width: 18px;
+	height: 18px;
+	padding: 0px;
+	margin: 0px;
+	position: absolute;
+}
+.dot{
+	width: 20px;
+	height: 20px;
+	background-image: url("./images/coin.png");
+	background-size: 10px 10px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+
+}
+.empty{
+	border: 0px;
+	background-color: black;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	padding: 0px;
+	margin: 0px;
+	position: absolute;
+
+}
+#pacman-right{
+	background-image: url("./images/pacman-right.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+#pacman-left{
+	background-image: url("./images/pacman-left.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+#pacman-up{
+	background-image: url("./images/pacman-up.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+#pacman-down{
+	background-image: url("./images/pacman-down.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+.ms-pacman-right{
+	background-image: url("./images/ms-pacman-right.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+.ms-pacman-left{
+	background-image: url("./images/ms-pacman-left.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+.ms-pacman-up{
+	background-image: url("./images/ms-pacman-up.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+.ms-pacman-down{
+	background-image: url("./images/ms-pacman-down.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+}
+.ghost_red{
+	background-image: url("./images/ghost_red.gif");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+	background-color: black;
+}
+.ghost_pink{
+	background-image: url("./images/ghost_pink.jpg");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+	background-color: black;
+}
+.ghost_blue{
+	background-image: url("./images/ghost_blue.jpg");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+	background-color: black;
+}
+.ghost_orange{
+	background-image: url("./images/ghost_orange.jpg");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+	background-color: black;
+}
+.ghost_scared{
+	background-image: url("./images/ghost_scared.jpg");
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	background-size: 20px 20px;
+	background-color: black;
+}
+
+
+

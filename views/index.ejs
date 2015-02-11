@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src='/socket.io/socket.io.js'></script>
+   
+    <style type="text/css">
+    div{
+        border: 1px solid black;
+        width:700px;
+    }
+    </style>
+</head>
+<body>
+<div id='world'></div>
+
+<div id='chat_window'>
+	<div id="title"><h1>Pacman</h1></div>
+    <div id='score'><div class="board"><h4>Scoreboard</h4></div>
+    </div>
+    <div class="board"><h4>Chat</h4></div>
+    <div id='chat'>
+    </div>
+    
+    <form>
+        <textarea id='message' rows=8 cols=35 name='message'  placeholder='Enter your message here...'autocomplete="off"></textarea>
+        <input type='submit' value='Send'>
+    </form>
+</div>
+</body>
+ <script type="text/javascript">
+    $(window).load(function(){
+         var socket = io.connect();
+          var my_id= '';
+        var p_my_id= '';
+        var name ='';
+
+        var world = [
+            [0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0],
+            [0,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1,  0],
+            [0,0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,  0],
+            [2,2, 2, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 2, 2,  2],
+            [2,2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 2, 2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2,  2],
+            [0,0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 2, 5, 5, 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0,  0],
+            [2,2, 2, 3, 1, 0, 0, 1, 0, 0, 1, 0, 2, 5, 5, 2, 0, 1, 0, 0, 1, 0, 0, 1, 2, 2, 2,  2],
+            [0,0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 2, 2, 2, 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0,  0],
+            [2,2, 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 2, 2,  2],
+            [2,2, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 2,  2],
+            [0,0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,  0],
+            [0,1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,  0],
+            [0,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  0],
+            [0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0]
+        ];
+        var direction= 'right';
+        var other_players_direction='right';
+        var score = 0;   
+        function drawWorld() {
+            var top = 0;
+            var left= 0;
+            var num= 0;
+            for (x in world) {
+                for (y in world[x]) {
+                    if (world[x][y] == 0) {
+                        $( "#world" ).append("<div class='wall'style='top:"+top+"px;left:"+left+"px;'></div>" );
+                        left+=20;
+                    }
+                    else if(world[x][y] == 1) {
+                        $( "#world" ).append("<div class='dot'style='top:"+top+"px;left:"+left+"px;'></div>" );
+                        left+=20;
+                    }
+                    else if(world[x][y] == 2) {
+                        $( "#world" ).append("<div class='empty'style='top:"+top+"px;left:"+left+"px;'></div>");
+                        left+=20;
+                    }
+                    else if(world[x][y] == 3) {
+                        $( "#world" ).append("<div id='pacman-"+direction+"'style='top:"+top+"px;left:"+left+"px;'></div>");
+                        left+=20;
+                    }
+                    else if(world[x][y] == 4) {
+                        $( "#world" ).append("<div class='ms-pacman-"+other_players_direction+"'style='top:"+top+"px;left:"+left+"px;'></div>");
+                        left+=20;
+                    }
+                    else if(world[x][y] == 5) {
+                        $( "#world" ).append("<div class='ghost_red' style='top:"+top+"px;left:"+left+"px;'></div>");
+                        num+=1;
+                        left+=20;
+                    }
+                }
+                left= 0;
+                top+=20;
+            };
+        }
+        drawWorld();
+        //pacman starts at x.15 y.3
+        var pacman = {
+            x: 15,
+            y: 3
+        };
+        var ghost = {
+            x:15,
+            y:24
+        }
+
+        function drawStartDiv(){
+            $('#world').append("<div id='start'><form><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button class='btn-start' id='startGame'>Start</button></form></div>");
+       
+        }
+
+drawStartDiv();
+
+    $('#startGame').click(function(){
+          name = $('#name').val();
+         $('#start').hide();
+        // this triggers the connection event in our server!
+       
+        //var name = prompt('What is your name??');
+       
+        socket.emit('new_user', {name: name})
+        $('form').submit(function (){
+            var message= $("textarea[name = 'message'").val();
+            socket.emit('new_message', {name: name,message: message})
+            $('#message').val('');
+            return false;
+        })
+        socket.on('my_id',function (data){
+                my_id= data.id;
+                p_my_id= '#'+data.id;
+                //setInterval(moveGhost, 20);
+                
+         })
+        socket.on('player_names', function (data){
+                 $('#score').append('<br><p id='+data.id+'>'+data.name+': 0</p>');
+        })
+           
+        socket.on('new_player', function (data) {
+             $('#score').append('<p id='+data.id+'>'+data.name+': 0</p>');
+        })
+        socket.on('all_messages',function (data){
+            message = {name: data.name, message: data.message}
+            $('#chat').append("<p><b>"+message.name+"</b>: "+message.message+"</p>");
+           // $('#chat').animate({"scrollTop": $('#chat')[0].scrollHeight}, "fast");
+        })
+        socket.on('other_player_scores', function (data){
+            var p_other_player='#'+data.id;
+            $(p_other_player).replaceWith('<p id='+data.id+'>'+data.name+': '+data.score+'</p>');
+
+        })
+
+        
+        $(document).keyup(function(e){
+            if(e.keyCode == 40){
+            //down
+                $(document).keydown(function(e){
+                    if(e.keyCode == 40){
+                        e.preventDefault();
+                    }   
+                })
+                if(world[pacman.x+1][pacman.y] == 1 || world[pacman.x+1][pacman.y] == 2 ) {
+                    if(world[pacman.x+1][pacman.y] == 1) {
+                        score+=10;
+                        socket.emit('score', {id: my_id, name: name, score:score});
+                        $( p_my_id ).empty();
+                        $(p_my_id).append('<br>'+name+': '+score);
+                    }
+                    world[pacman.x][pacman.y]=2;
+                    world[pacman.x+1][pacman.y]=3;
+                    pacman.x+=1;
+                    direction = 'down';
+                    socket.emit('pacman', {x: pacman.x,y: pacman.y});
+                    $( "#world" ).empty();
+                    drawWorld();
+                }
+            }
+            if(e.keyCode == 38){
+            //up
+                $(document).keydown(function(e){
+                    if(e.keyCode == 38){
+                        e.preventDefault();
+                    }
+                })
+                if(world[pacman.x-1][pacman.y] == 1 || world[pacman.x-1][pacman.y] == 2) {
+                    if(world[pacman.x-1][pacman.y] == 1) {
+                        score+=10;
+                        socket.emit('score', {id: my_id, name: name, score:score});
+                        $( p_my_id ).empty();
+                         $(p_my_id).append('<br>'+name+': '+score);
+                    }
+                    world[pacman.x][pacman.y]=2;
+                    world[pacman.x-1][pacman.y]=3;
+                    pacman.x-=1;
+                    direction = 'up';
+                    socket.emit('pacman', {x: pacman.x,y: pacman.y});
+                    $( "#world" ).empty();
+                    drawWorld();
+                }
+            }
+            if(e.keyCode == 37){
+            //left
+                $(document).keydown(function(e){
+                    if(e.keyCode == 37){
+                        e.preventDefault();
+                    }
+                })
+                if(world[pacman.x][pacman.y-1] == 1 || world[pacman.x][pacman.y-1] == 2) {
+                    if(world[pacman.x][pacman.y-1] == 1) {
+                        score+=10;
+                         socket.emit('score', {id: my_id, name: name, score:score});
+                            $( p_my_id ).empty();
+                             $(p_my_id).append('<br>'+name+': '+score);
+                    }
+                    if(pacman.x == 15 && pacman.y-1 == 0 ) {
+                        world[pacman.x][pacman.y]=2;
+                        pacman.y=27;
+                        world[pacman.x][pacman.y]=3;
+                    }
+                    else{
+                    world[pacman.x][pacman.y]=2;
+                    world[pacman.x][pacman.y-1]=3;
+                    pacman.y-=1;
+                    }
+                    direction = 'left';
+                    socket.emit('pacman', {x: pacman.x,y: pacman.y});
+                    $( "#world" ).empty();
+                     drawWorld();
+                }
+            }
+            if(e.keyCode == 39){
+            //right
+                $(document).keydown(function(e){
+                    if(e.keyCode == 39){
+                        e.preventDefault();
+                    }
+                })
+                if(world[pacman.x][pacman.y+1] == 1 || world[pacman.x][pacman.y+1] == 2) {
+                    if(world[pacman.x][pacman.y+1] == 1) {
+                        score+=10;
+                        socket.emit('score', {id: my_id, name: name, score:score});
+                        $( p_my_id ).empty();
+                         $(p_my_id).append('<br>'+name+': '+score);
+                    }
+                    if(pacman.x == 15 && pacman.y+1 == 27 ) {
+                        world[pacman.x][pacman.y]=2;
+                        pacman.y=1;
+                        world[pacman.x][pacman.y]=3;
+                    }
+                    else{
+                        world[pacman.x][pacman.y]=2;
+                        world[pacman.x][pacman.y+1]=3;
+                        pacman.y+=1;
+                    }
+                    direction = 'right';
+                    socket.emit('pacman', {x: pacman.x,y: pacman.y});
+                    $( "#world" ).empty();
+                    drawWorld();
+                }               
+            }           
+        });
+        socket.on('other_players',function (data){
+            other_pacmans = {x: data.x, y: data.y};
+            world[other_pacmans.x][other_pacmans.y]=4;
+            if (world[other_pacmans.x-1][other_pacmans.y]==4) {
+                world[other_pacmans.x-1][other_pacmans.y]=2;
+                other_players_direction='down';
+            }
+            else if (world[other_pacmans.x+1][other_pacmans.y]==4) {
+                world[other_pacmans.x+1][other_pacmans.y]=2;
+                other_players_direction='up';
+            }
+            else if (world[other_pacmans.x][other_pacmans.y-1]==4) {
+                if(other_pacmans.x == 16 && other_pacmans.y+1 == 26 ) {
+                     world[other_pacmans.x][other_pacmans.y]=2;
+                }
+                world[other_pacmans.x][other_pacmans.y-1]=2;
+                other_players_direction='right';
+            }
+            else if (world[other_pacmans.x][other_pacmans.y+1]==4) {
+                if(other_pacmans.x == 16 && other_pacmans.y-1 == 0 ) {
+                     world[other_pacmans.x][other_pacmans.y]=2;
+                }
+                world[other_pacmans.x][other_pacmans.y+1]=2;
+                other_players_direction='left'
+            }
+            $( "#world" ).empty();
+            drawWorld();
+        })
+       socket.on('user_left', function (data){
+            world[other_pacmans.x][other_pacmans.y]=2;
+            $( "#world" ).empty();
+            drawWorld();
+            var player_left='#'+data.id;
+            //console.log(data.name+' disconnected');
+            $(player_left).empty();
+        })
+
+  //      function moveGhost(){
+
+  //            if(world[ghost.x][ghost.y-1]!=0){
+        //      world[ghost.x][ghost.y-1]=5;
+        //  }    
+  //            else if(world[ghost.x][ghost.y+1]!=0){
+        //          world[ghost.x][ghost.y+1]=5;        
+        //  }
+        //  else if(world[ghost.x-1][ghost.y]!=0){
+        //          world[ghost.x-1][ghost.y]=5;
+        //  }
+        //  else if(world[ghost.x+1][ghost.y]!=0){
+        //          world[ghost.x+1][ghost.y]=5;
+        //  }
+        //  drawWorld();
+        // }
+    })
+})
+    </script>
+</html>
