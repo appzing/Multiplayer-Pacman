@@ -59,6 +59,16 @@ body{
 	width: 250px;
 	color:blue;
 }
+#instructions{
+	display: inline-block;
+	border: none;
+	width: 500px;
+	vertical-align: top;
+	background-color:black;
+	color:blue;
+	text-align: center;
+	margin-left: 20px;
+}
 
 #chat_window{
 	display: inline-block;
