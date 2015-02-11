@@ -33,7 +33,7 @@
 </div>
 </body>
  <script type="text/javascript">
-(function(){
+$(window).load(function(){
 
         var socket = io.connect();
         var my_id= '';
@@ -132,13 +132,13 @@
         // drawStartDiv();
 
     $('#startGame').click(function(e){
-        e.preventDefault();
+
           name = $('#name').val();
          $('#start').hide();
         // this triggers the connection event in our server!
        
         //var name = prompt('What is your name??');
-       
+       drawWorld();
         socket.emit('new_user', {name: name})
         $('form').submit(function (){
             var message= $("textarea[name = 'message'").val();
@@ -333,6 +333,6 @@
         //  drawWorld();
         // }
     })
-})();
+});
     </script>
 </html>
