@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<div id='start'><form><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button class='btn-start' id='startGame'>Start</button></form></div>    
+<div id='start'><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button  id='startGame' class='btn-start'>Start</button></div>    
 <div id='world'></div>
 
 <div id='chat_window'>
@@ -131,7 +131,7 @@ $(window).load(function(){
 
         // drawStartDiv();
 
-    $('#startGame').click(function(e){
+    $('#startGame').click(function(){
 
           name = $('#name').val();
          $('#start').hide();
