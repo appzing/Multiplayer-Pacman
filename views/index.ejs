@@ -15,6 +15,7 @@
     </style>
 </head>
 <body>
+<div id='start'><form><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button class='btn-start' id='startGame'>Start</button></form></div>    
 <div id='world'></div>
 
 <div id='chat_window'>
@@ -32,9 +33,10 @@
 </div>
 </body>
  <script type="text/javascript">
-    $(window).load(function(){
-         var socket = io.connect();
-          var my_id= '';
+(function(){
+
+        var socket = io.connect();
+        var my_id= '';
         var p_my_id= '';
         var name ='';
 
@@ -122,14 +124,15 @@
             y:24
         }
 
-        function drawStartDiv(){
-            $('#world').append("<div id='start'><form><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button class='btn-start' id='startGame'>Start</button></form></div>");
+        // function drawStartDiv(){
+        //     $('#world').append("<div id='start'><form><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button class='btn-start' id='startGame'>Start</button></form></div>");
        
-        }
+        // }
 
-drawStartDiv();
+        // drawStartDiv();
 
-    $('#startGame').click(function(){
+    $('#startGame').click(function(e){
+        e.preventDefault();
           name = $('#name').val();
          $('#start').hide();
         // this triggers the connection event in our server!
@@ -330,6 +333,6 @@ drawStartDiv();
         //  drawWorld();
         // }
     })
-})
+})();
     </script>
 </html>

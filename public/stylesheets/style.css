@@ -13,12 +13,13 @@ body{
 #start{
 	width:300px;
 	height:200px;
-	position: absolute;
+	position:absolute;
 	top:200px;
 	left:100px;
 	background: yellow;
 	color:blue;
 	border: 2px solid red;
+	z-index:4;
 }
 
 .welcome{
