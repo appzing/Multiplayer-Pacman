@@ -6,7 +6,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src='/socket.io/socket.io.js'></script>
-   
+
     <style type="text/css">
     div{
         border: 1px solid black;
@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<div id='start'><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button  id='startGame' class='btn-start'>Start</button></div>    
+<div id='start'><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button  id='startGame' class='btn-start'>Start</button></div>
 <div id='world'></div>
 
 <div id='chat_window'>
@@ -25,7 +25,7 @@
     <div class="board"><h4>Chat</h4></div>
     <div id='chat'>
     </div>
-    
+
     <div>
         <input id='message' name='message'  placeholder='Enter message here...'autocomplete="off"><br>
         <button id='sendMessage' class="btn-start">Send</button>
@@ -44,7 +44,7 @@
 </body>
  <script type="text/javascript">
 $(window).load(function(){
-        
+
         var socket = io.connect();
         var my_id= '';
         var p_my_id= '';
@@ -86,7 +86,7 @@ $(window).load(function(){
         ];
         var direction= 'right';
         var other_players_direction='right';
-        var score = 0;   
+        var score = 0;
         function drawWorld() {
             var top = 0;
             var left= 0;
@@ -136,7 +136,7 @@ $(window).load(function(){
 
         // function drawStartDiv(){
         //     $('#world').append("<div id='start'><form><h3 class='welcome'>Welcome to Pacman</h3><input type='text' id='name' placeholder='Enter name'><br><button class='btn-start' id='startGame'>Start</button></form></div>");
-       
+
         // }
 
         // drawStartDiv();
@@ -146,7 +146,7 @@ $(window).load(function(){
           name = $('#name').val();
          $('#start').hide();
         // this triggers the connection event in our server!
-       
+
         //var name = prompt('What is your name??');
        drawWorld();
         socket.emit('new_user', {name: name})
@@ -159,13 +159,13 @@ $(window).load(function(){
         socket.on('my_id',function (data){
                 my_id= data.id;
                 p_my_id= '#'+data.id;
-                //setInterval(moveGhost, 20);
-                
+                // setInterval(moveGhost, 20);
+
          })
         socket.on('player_names', function (data){
                  $('#score').append('<br><p id='+data.id+'>'+data.name+': 0</p>');
         })
-           
+
         socket.on('new_player', function (data) {
              $('#score').append('<p id='+data.id+'>'+data.name+': 0</p>');
         })
@@ -180,14 +180,14 @@ $(window).load(function(){
 
         })
 
-        
+
         $(document).keyup(function(e){
             if(e.keyCode == 40){
             //down
                 $(document).keydown(function(e){
                     if(e.keyCode == 40){
                         e.preventDefault();
-                    }   
+                    }
                 })
                 if(world[pacman.x+1][pacman.y] == 1 || world[pacman.x+1][pacman.y] == 2 ) {
                     if(world[pacman.x+1][pacman.y] == 1) {
@@ -286,8 +286,8 @@ $(window).load(function(){
                     socket.emit('pacman', {x: pacman.x,y: pacman.y});
                     $( "#world" ).empty();
                     drawWorld();
-                }               
-            }           
+                }
+            }
         });
         socket.on('other_players',function (data){
             other_pacmans = {x: data.x, y: data.y};
@@ -326,22 +326,22 @@ $(window).load(function(){
             $(player_left).empty();
         })
 
-  //      function moveGhost(){
-
-  //            if(world[ghost.x][ghost.y-1]!=0){
-        //      world[ghost.x][ghost.y-1]=5;
-        //  }    
-  //            else if(world[ghost.x][ghost.y+1]!=0){
-        //          world[ghost.x][ghost.y+1]=5;        
-        //  }
-        //  else if(world[ghost.x-1][ghost.y]!=0){
-        //          world[ghost.x-1][ghost.y]=5;
-        //  }
-        //  else if(world[ghost.x+1][ghost.y]!=0){
-        //          world[ghost.x+1][ghost.y]=5;
-        //  }
-        //  drawWorld();
-        // }
+       // function moveGhost(){
+       //
+       //       if(world[ghost.x][ghost.y-1]!=0){
+       //       world[ghost.x][ghost.y-1]=5;
+       //   }
+       //       else if(world[ghost.x][ghost.y+1]!=0){
+       //           world[ghost.x][ghost.y+1]=5;
+       //   }
+       //   else if(world[ghost.x-1][ghost.y]!=0){
+       //           world[ghost.x-1][ghost.y]=5;
+       //   }
+       //   else if(world[ghost.x+1][ghost.y]!=0){
+       //           world[ghost.x+1][ghost.y]=5;
+       //   }
+       //   drawWorld();
+       //  }
     })
 });
     </script>
